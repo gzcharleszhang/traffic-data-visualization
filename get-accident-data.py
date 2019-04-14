@@ -27,10 +27,6 @@ insert_point = (
   "VALUES (%s, %s, %s)"
 )
 
-query_all = (
-  "SELECT * FROM `collisions`"
-)
-
 def main():
   cursor = db.cursor()
   cursor.execute(drop_table)
