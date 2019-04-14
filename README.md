@@ -6,4 +6,4 @@ Visualizing traffic data in Toronto through interactive maps and graphs
 ![collision toronto screenshot](/screenshots/collisions_toronto.png)
 
 ### Collisions By Month
-![collision per month screenshot](/screenshots/collisions_per_month.png)
+![collision by month screenshot](/screenshots/collisions_by_month.png)
