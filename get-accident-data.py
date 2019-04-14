@@ -1,6 +1,7 @@
 import requests
 import overpass
 import mysql.connector as mysql
+import time
 
 db = mysql.connect(
     host="localhost",
@@ -19,12 +20,13 @@ create_table = (
     "  `latitude` varchar(20) NOT NULL,"
     "  `longitude` varchar(20) NOT NULL,"
     "  `impact_type` varchar(100) NOT NULL,"
+    "  `date` varchar(20) NOT NULL,"
     "  PRIMARY KEY (`id`))")
 
 insert_point = (
   "INSERT INTO `collisions`"
-  "(latitude, longitude, impact_type)"
-  "VALUES (%s, %s, %s)"
+  "(latitude, longitude, impact_type, date)"
+  "VALUES (%s, %s, %s, %s)"
 )
 
 def main():
@@ -37,7 +39,9 @@ def main():
   features = data["features"]
   for feature in features:
     point = feature["attributes"]
-    point_data = (point["LATITUDE"], point["LONGITUDE"], point["IMPACTYPE"])
+    epoch = point["DATE"] / 1000
+    date = time.strftime('%Y-%m-%d', time.localtime(epoch))
+    point_data = (point["LATITUDE"], point["LONGITUDE"], point["IMPACTYPE"], date)
     cursor.execute(insert_point, point_data)
     db.commit()
   # lat, long = point["LATITUDE"], point["LONGITUDE"]

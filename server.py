@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 import mysql.connector as mysql
 
 query_all = (
-  "SELECT `latitude`, `longitude`, `impact_type` FROM `collisions`"
+  "SELECT `latitude`, `longitude`, `impact_type`, `date` FROM `collisions`"
 )
 
 db = mysql.connect(
@@ -32,7 +32,7 @@ data = [
         marker=go.scattermapbox.Marker(
             size=14
         ),
-        text=[point[2] for point in points],
+        text=[point[2] + ", " + point[3] for point in points],
     )
 ]
 
