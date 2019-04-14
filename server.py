@@ -90,13 +90,13 @@ def collisions_per_month():
     layout = {
         "xaxis": {"title": "Month"},
         "yaxis": {"title": "Number of Fatal Collisions"},
-        "title": "Number of Fatal Collisions Per Month"
+        "title": "Number of Fatal Collisions By Month"
     }
 
     fig = dict(data=data, layout=layout)
 
     return dcc.Graph(
-        id='collisions-toronto-per-month',
+        id='collisions-toronto-by-month',
         figure=fig
     )
 
