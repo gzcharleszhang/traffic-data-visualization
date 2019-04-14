@@ -101,9 +101,47 @@ def collisions_per_month():
     )
 
 
+def collisions_per_year():
+    cursor.execute(query_all_collisions)
+    points = cursor.fetchall()
+    yearMap = dict()
+    for point in points:
+        date = point[3]
+        year = date.split("-")[0]
+        if year not in yearMap:
+            yearMap[year] = 1
+        else:
+            yearMap[year] += 1
+
+    years = sorted([m for m, _ in yearMap.items()])
+    counts = [count for _, count in yearMap.items()]
+    data = [
+        {
+            'x': years,
+            'y': counts,
+            'type': 'line',
+            "name": "collision"
+        }
+    ]
+
+    layout = {
+        "xaxis": {"title": "Year"},
+        "yaxis": {"title": "Number of Fatal Collisions"},
+        "title": "Number of Fatal Collisions Per Year"
+    }
+
+    fig = dict(data=data, layout=layout)
+
+    return dcc.Graph(
+        id='collisions-toronto-per-year',
+        figure=fig
+    )
+
+
 app.layout = html.Div(children=[
     collisions_map(),
-    collisions_per_month()
+    collisions_per_month(),
+    collisions_per_year()
 ])
 
 if __name__ == '__main__':
